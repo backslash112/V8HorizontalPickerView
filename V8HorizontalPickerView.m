@@ -6,7 +6,7 @@
 //
 
 #import "V8HorizontalPickerView.h"
-
+#import <AudioToolbox/AudioToolbox.h>
 
 #pragma mark - Internal Method Interface
 @interface V8HorizontalPickerView () {
@@ -717,6 +717,7 @@
 	if (self.selectedElement != selected) {
 		if (selected) {
 			self.textColor = self.selectedStateColor;
+            AudioServicesPlaySystemSound(1306);
 		} else {
 			self.textColor = self.normalStateColor;
 		}
