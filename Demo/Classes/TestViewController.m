@@ -18,7 +18,8 @@ int indexCount;
 - (id)init {
 	self = [super init];
 	if (self) {
-		self.titleArray = [NSMutableArray arrayWithObjects:@"All", @"Today", @"Thursday", @"Wednesday", @"Tuesday", @"Monday", nil];
+        
+		self.titleArray = [NSMutableArray arrayWithObjects:@"10:00", @"15:00", @"20:00", @"25:00", @"30:00", @"35:00", @"40:00", @"45:00", nil];
 		indexCount = 0;
 	}
 	return self;
@@ -34,12 +35,12 @@ int indexCount;
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	self.view.backgroundColor = [UIColor blackColor];
-	CGFloat margin = 40.0f;
+	self.view.backgroundColor = [UIColor whiteColor];
+	CGFloat margin = 0.0f;
 	CGFloat width = (self.view.bounds.size.width - (margin * 2.0f));
-	CGFloat pickerHeight = 40.0f;
+	CGFloat pickerHeight = 70.5f;
 	CGFloat x = margin;
-	CGFloat y = 150.0f;
+	CGFloat y = 218.0f;
 	CGFloat spacing = 25.0f;
 	CGRect tmpFrame = CGRectMake(x, y, width, pickerHeight);
 
@@ -48,13 +49,13 @@ int indexCount;
 //	CGRect tmpFrame = CGRectMake(x, 150.0f, width, 40.0f);
 
 	self.pickerView = [[V8HorizontalPickerView alloc] initWithFrame:tmpFrame];
-	self.pickerView.backgroundColor   = [UIColor darkGrayColor];
+	self.pickerView.backgroundColor   = [UIColor colorWithRed:187.0/255.0 green:47.0/255.0 blue:68.0/255.0 alpha:1.0];
 	self.pickerView.selectedTextColor = [UIColor whiteColor];
 	self.pickerView.textColor   = [UIColor grayColor];
 	self.pickerView.delegate    = self;
 	self.pickerView.dataSource  = self;
-	self.pickerView.elementFont = [UIFont boldSystemFontOfSize:14.0f];
-	self.pickerView.selectionPoint = CGPointMake(60, 0);
+    self.pickerView.elementFont = [UIFont systemFontOfSize:14.0];
+	self.pickerView.selectionPoint = CGPointMake((self.view.frame.size.width) / 2, 0);
 
 	// add carat or other view to indicate selected element
 	UIImageView *indicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"indicator"]];
@@ -206,12 +207,12 @@ int indexCount;
 }
 
 - (NSInteger) horizontalPickerView:(V8HorizontalPickerView *)picker widthForElementAtIndex:(NSInteger)index {
-	CGSize constrainedSize = CGSizeMake(MAXFLOAT, MAXFLOAT);
-	NSString *text = [self.titleArray objectAtIndex:index];
-	CGSize textSize = [text sizeWithFont:[UIFont boldSystemFontOfSize:14.0f]
-					   constrainedToSize:constrainedSize
-						   lineBreakMode:UILineBreakModeWordWrap];
-	return textSize.width + 40.0f; // 20px padding on each side
+	//CGSize constrainedSize = CGSizeMake(MAXFLOAT, MAXFLOAT);
+	//NSString *text = [self.titleArray objectAtIndex:index];
+//	CGSize textSize = [text sizeWithFont:[UIFont systemFontOfSize:14]
+//					   constrainedToSize:constrainedSize
+//						   lineBreakMode:UILineBreakModeWordWrap];
+	return 49.0f + (self.view.frame.size.width - 49.0*3) / 2 -10; // 20px padding on each side
 }
 
 - (void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index {

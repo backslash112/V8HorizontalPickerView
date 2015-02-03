@@ -57,7 +57,7 @@ typedef enum {
 
 
 // sub-class of UILabel that knows how to change it's state
-@interface V8HorizontalPickerLabel : UILabel <V8HorizontalPickerElementState> { }
+@interface V8HorizontalPickerUIImageView : UIImageView <V8HorizontalPickerElementState> { }
 
 @property (nonatomic, assign) BOOL selectedElement;
 @property (nonatomic, strong) UIColor *selectedStateColor;

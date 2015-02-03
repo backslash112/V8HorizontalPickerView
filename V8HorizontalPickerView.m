@@ -127,7 +127,7 @@
 					isSelected = (currentIndex == self.currentSelectedIndex);
 				}
 				// casting to V8HorizontalPickerLabel so we can call this without all the NSInvocation jazz
-				[(V8HorizontalPickerLabel *)view setSelectedElement:isSelected];
+				[(V8HorizontalPickerUIImageView *)view setSelectedElement:isSelected];
 			}
 		}
 	}
@@ -448,23 +448,25 @@
 }
 
 // create a UILabel for this element.
-- (V8HorizontalPickerLabel *)labelForForElementAtIndex:(NSInteger)index withTitle:(NSString *)title {
-	CGRect labelFrame     = [self frameForElementAtIndex:index];
-	V8HorizontalPickerLabel *elementLabel = [[V8HorizontalPickerLabel alloc] initWithFrame:labelFrame];
+- (V8HorizontalPickerUIImageView *)labelForForElementAtIndex:(NSInteger)index withTitle:(NSString *)title {
+	CGRect labelFrame = [self frameForElementAtIndex:index];
+	//V8HorizontalPickerUIImageView *elementLabel = [[V8HorizontalPickerUIImageView alloc] initWithFrame:labelFrame];
 
-	elementLabel.textAlignment   = NSTextAlignmentCenter;
-	elementLabel.backgroundColor = self.backgroundColor;
-	elementLabel.text            = title;
-	elementLabel.font            = self.elementFont;
+//	elementLabel.textAlignment   = NSTextAlignmentCenter;
+//	elementLabel.backgroundColor = self.backgroundColor;
+//	elementLabel.text            = title;
+//	elementLabel.font            = self.elementFont;
 
-	elementLabel.normalStateColor   = self.textColor;
-	elementLabel.selectedStateColor = self.selectedTextColor;
-
+//	elementLabel.normalStateColor   = self.textColor;
+//	elementLabel.selectedStateColor = self.selectedTextColor;
+    V8HorizontalPickerUIImageView *elementImageView = [[V8HorizontalPickerUIImageView alloc] initWithImage:[UIImage imageNamed:title]];
+    elementImageView.contentMode = UIViewContentModeCenter;
+    elementImageView.frame = labelFrame;
 	// show selected status if this element is the selected one and is currently over selectionPoint
 	NSInteger currentIndex = [self nearestElementToCenter];
-	elementLabel.selectedElement = (self.currentSelectedIndex == index) && (currentIndex == self.currentSelectedIndex);
+	elementImageView.selectedElement = (self.currentSelectedIndex == index) && (currentIndex == self.currentSelectedIndex);
 
-	return elementLabel;
+	return elementImageView;
 }
 
 
@@ -711,15 +713,15 @@
 
 // ------------------------------------------------------------------------
 #pragma mark - Picker Label Implementation
-@implementation V8HorizontalPickerLabel : UILabel
+@implementation V8HorizontalPickerUIImageView : UIImageView
 
 - (void)setSelectedElement:(BOOL)selected {
 	if (self.selectedElement != selected) {
 		if (selected) {
-			self.textColor = self.selectedStateColor;
+			//self.textColor = self.selectedStateColor;
             AudioServicesPlaySystemSound(1306);
 		} else {
-			self.textColor = self.normalStateColor;
+			//self.textColor = self.normalStateColor;
 		}
 		_selectedElement = selected;
 		[self setNeedsLayout];
@@ -729,7 +731,7 @@
 - (void)setNormalStateColor:(UIColor *)color {
 	if (self.normalStateColor != color) {
 		_normalStateColor = color;
-		self.textColor = self.normalStateColor;
+		//self.textColor = self.normalStateColor;
 		[self setNeedsLayout];
 	}
 }
